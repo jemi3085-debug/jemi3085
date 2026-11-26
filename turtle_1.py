@@ -1,18 +1,54 @@
-def turtle():
-    import turtle
+import turtle
+import math
 
-    turtle.Turtle()
-    turtle.bgcolor("black")
-    turtle.speed(0)
-    turtle.pensize(1)
-    colors = ["red", "orange", "yellow", "green",
-                "cyan", "blue", "purple"]
-    for i in range(90):
-        turtle.pencolor(colors[i % 7])
-        turtle.circle(100)
-        turtle.left(2)
-        turtle.circle(100)
-        turtle.left(2)
-    turtle.hideturtle()
-    turtle.done()
-turtle()
+t = turtle.Turtle()
+t.speed(0)
+t.pensize(0.6)
+t.color("gray")
+
+top = (0, 100)
+bottom = (0, -100)
+left = (-58, 0)
+right = (58, 0)
+
+def line(p1, p2):
+    t.penup()
+    t.goto(p1)
+    t.pendown()
+    t.goto(p2)
+
+line(top, right)
+line(right, bottom)
+line(bottom, left)
+line(left, top)
+
+n = 24
+
+for i in range(n + 1):
+    k = i / n
+
+    p1 = (left[0] * (1-k), left[1] * (1-k) + bottom[1] * k)
+    p2 = (right[0] * (1-k), right[1] * (1-k) + bottom[1] * k)
+
+    line(top, p1)
+    line(top, p2)
+
+    p3 = (left[0] * (1-k), left[1] * (1-k) + top[1] * k)
+    p4 = (right[0] * (1-k), right[1] * (1-k) + top[1] * k)
+
+    line(bottom, p3)
+    line(bottom, p4)
+
+for a, b in [(115, 20), (90, 12)]:
+    t.penup()
+    t.goto(-a, 0)
+    t.pendown()
+
+    for i in range(361):
+        angle = math.radians(i)
+        x = a * math.cos(angle)
+        y = b * math.sin(angle)
+        t.goto(x, y)
+
+t.hideturtle()
+turtle.done()
